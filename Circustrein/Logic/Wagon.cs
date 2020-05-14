@@ -20,50 +20,7 @@ namespace Circustrein.Logic
             }
         }
 
-        public void AddAnimal(List<Animal> animalList)
-        {
-            if (animalList == null)
-                throw new ArgumentNullException();
-
-            foreach (Animal animal in animalList)
-            {
-                if (animals.Count == 0)
-                {
-                    AddToWagon(animal);
-                }
-                else
-                {
-                    bool meatEaterAssigned = CheckForMeatEater();
-                    bool fits = CheckIfFits(animal.size);
-                    if (!meatEaterAssigned && fits)
-                    {
-                        if (animal.food == FoodType.Meat)
-                        {
-                            BodySize size = GetSmalestAnimalSize();
-                            if (animal.size >= size) continue;
-                        }
-
-                        AddToWagon(animal);
-                    }
-                    else
-                    {
-                        int meatEaterSize = 0;
-                        if (meatEaterAssigned)
-                        {
-                            meatEaterSize = (int)GetMeatEaterSize();
-                        }
-
-                        if (fits && animal.food == FoodType.Plants && (int)animal.size > meatEaterSize)
-                        {
-                            AddToWagon(animal);
-                        }
-                    }
-                }
-
-            }
-        }
-
-        private void AddToWagon(Animal animal)
+        public void AddToWagon(Animal animal)
         {
             if (animal == null)
             {
@@ -79,7 +36,7 @@ namespace Circustrein.Logic
             usedSpace += (int)animal.size;
         }
 
-        private bool CheckIfFits(BodySize animalSize)
+        public bool CheckIfFits(BodySize animalSize)
         {
             BodySize meatEaterSize = GetMeatEaterSize();
 
@@ -91,7 +48,7 @@ namespace Circustrein.Logic
             return false;
         }
 
-        private BodySize GetMeatEaterSize()
+        public BodySize GetMeatEaterSize()
         {
             // create instance of alterList, so we can get the meat eater inside of the train wagon
             ListFilters filter = new ListFilters();
@@ -109,7 +66,7 @@ namespace Circustrein.Logic
             return size;
         }
 
-        private bool CheckForMeatEater()
+        public bool CheckForMeatEater()
         {
             // create an instance of alterList, so we van get a list of the meat eaters inside of the train wagon
             ListFilters filter = new ListFilters();
@@ -121,13 +78,66 @@ namespace Circustrein.Logic
             return meatEaterList.Count() > 0;
         }
 
-        private BodySize GetSmalestAnimalSize()
+        public BodySize GetSmalestAnimalSize()
         {
             // get the smalles animal inside of the train wagon
             return animals.Select(a => a.size).Min();
         }
 
+        public void AddMeatEaters(List<Animal> meatEaters)
+        {
+            if (meatEaters == null)
+                throw new ArgumentNullException();
 
+            foreach (Animal animal in meatEaters)
+            {
+                if (animals.Count == 0)
+                {
+                    AddToWagon(animal);
+                }
+                else
+                {
+                    bool meatEaterAssigned = CheckForMeatEater();
+                    bool fits = CheckIfFits(animal.size);
+                    if (!meatEaterAssigned && fits)
+                    {
+                        AddToWagon(animal);
+                    }
+                }
+
+            }
+        }
+
+        public void AddPlantEaters(List<Animal> plantEaters)
+        {
+            if (plantEaters == null)
+                throw new ArgumentNullException();
+
+            foreach (Animal animal in plantEaters)
+            {
+                if (animals.Count == 0)
+                {
+                    AddToWagon(animal);
+                }
+                else
+                {
+                    bool meatEaterAssigned = CheckForMeatEater();
+                    bool fits = CheckIfFits(animal.size);
+                    if (!meatEaterAssigned && fits)
+                    {
+                        AddToWagon(animal);
+                    }
+                    else
+                    {
+                        if (fits)
+                        {
+                            AddToWagon(animal);
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }
 

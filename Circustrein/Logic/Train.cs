@@ -21,10 +21,10 @@ namespace Circustrein.Logic
             ListFilters filter = new ListFilters();
 
             // get all carnivores from the animal list
-            //List<Animal> meatEaters = filter.GetCarnivoreList(animals);
+            List<Animal> meatEaters = filter.GetCarnivoreList(animals);
 
             // get all omnivores from the animal list
-            //List<Animal> plantEaters = filter.GetOmnivoreList(animals);
+            List<Animal> plantEaters = filter.GetOmnivoreList(animals);
 
             // start a count of the animals, so that we can track if all animals have been assigned to a train wagon
             int animalCount = 0;
@@ -32,13 +32,17 @@ namespace Circustrein.Logic
             // loop through the animals, untill all animals have been assinged to a train wagon
             while (animalCount < animals.Count)
             {
-                //meatEaters = meatEaters.Except(assignedAnimals).ToList();
-                //plantEaters = plantEaters.Except(assignedAnimals).ToList();
-                List<Animal> animalList = animals.Except(assignedAnimals).ToList();
+                meatEaters = meatEaters.Except(assignedAnimals).ToList();
+                plantEaters = plantEaters.Except(assignedAnimals).ToList();
 
                 Wagon wagon = new Wagon();
 
-                wagon.AddAnimal(animalList);
+                if (meatEaters.Count > 0)
+                {
+                    wagon.AddMeatEaters(meatEaters);
+                }
+
+                wagon.AddPlantEaters(plantEaters);
 
                 wagons.Add(wagon);
 
