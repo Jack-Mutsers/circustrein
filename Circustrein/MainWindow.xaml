@@ -1,0 +1,66 @@
+﻿<Window x:Class="Circustrein.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Circustrein"
+        xmlns:local1="clr-namespace:Circustrein.Logic"
+        xmlns:codeg="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type codeg:Enum}" x:Key="enumSize">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="local1:BodySize" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type codeg:Enum}" x:Key="enumTypes">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="local1:FoodType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="0,10,560,225">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Name" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Text="{Binding Path=name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" TextWrapping="Wrap" Width="170"/>
+            </StackPanel>
+
+            <GridSplitter Width="50" Height="20" Visibility="Hidden" />
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Food" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <ComboBox SelectedItem="{Binding Path=food, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumTypes}}" SelectedValue="{Binding Path=eats}" />
+            </StackPanel>
+
+            <GridSplitter Width="50" Height="20" Visibility="Hidden" />
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Size" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <ComboBox SelectedItem="{Binding Path=size, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumSize}}" SelectedValue="{Binding Path=size}" />
+            </StackPanel>
+
+            <GridSplitter Width="50" Height="20" Visibility="Hidden" />
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add" Width="75" Click="AddNewAnimal_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <ListView x:Name="lv" HorizontalAlignment="Left" Height="399" Margin="249,10,0,0" VerticalAlignment="Top" Width="533">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Name:"/>
+                        <Label Width="120" Content="{Binding name}"/>
+                        <Label Content="Food diet :"/>
+                        <Label Width="75" Content="{Binding food}"/>
+                        <Label Content="Body size: "/>
+                        <Label Width="75" Content="{Binding size}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="btnGenerate" Content="Generate" FontSize="17" HorizontalAlignment="Left" Margin="32,351,0,0" VerticalAlignment="Top" Width="108" Height="35" Click="btnGenerate_Click"/>
+    </Grid>
+</Window>
