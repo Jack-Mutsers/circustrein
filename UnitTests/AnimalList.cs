@@ -1,9 +1,6 @@
-﻿using Circustrein.Logic;
-using System;
+﻿using Logic;
+using Logic.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests
 {

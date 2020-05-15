@@ -1,4 +1,5 @@
-﻿using Circustrein.Logic;
+﻿using Logic.Interfaces;
+using Logic.Models;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -10,9 +11,9 @@ namespace Circustrein
     public partial class TrainWindow : Window
     {
         // create an instance for the list of animals that gets send over
-        private List<Animal> animalList;
+        private List<IAnimal> animalList;
 
-        public TrainWindow(List<Animal> list)
+        public TrainWindow(List<IAnimal> list)
         {
             InitializeComponent();
 
