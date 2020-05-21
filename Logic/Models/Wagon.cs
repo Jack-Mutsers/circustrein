@@ -27,6 +27,15 @@ namespace Logic.Models
 
             foreach (Animal animal in animalList)
             {
+                if (animal == null)
+                    throw new ArgumentNullException("Animal null");
+
+                if (animal.name == "")
+                    throw new ArgumentException("Animal name");
+
+                if (maxSize == usedSpace)
+                    break;
+
                 if (animals.Count == 0)
                 {
                     AddToWagon(animal);

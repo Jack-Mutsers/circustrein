@@ -7,9 +7,9 @@ namespace Logic.Models
 {
     public class Animal : INotifyPropertyChanged, IAnimal
     {
-        private string _name { get; set; }
-        private BodySize _size { get; set; }
-        private FoodType _food { get; set; }
+        private string _name { get; set; } = "";
+        private BodySize _size { get; set; } = BodySize.Small;
+        private FoodType _food { get; set; } = FoodType.Meat;
 
         public string name 
         { 

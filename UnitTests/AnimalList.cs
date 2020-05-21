@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Logic.Interfaces;
 using Logic.Models;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace UnitTests
 {
     public class AnimalList
     {
-        public List<Animal> Animals { get; set; } = new List<Animal>()
+        public List<IAnimal> Animals { get; set; } = new List<IAnimal>()
         {
             new Animal() { name = "Ape", food = FoodType.Plants, size = BodySize.Medium },
             new Animal() { name = "Elaphant", food = FoodType.Plants, size = BodySize.Big },
