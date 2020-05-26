@@ -1,4 +1,6 @@
-﻿using Circustrein.Logic;
+﻿using Logic;
+using Logic.Interfaces;
+using Logic.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -11,10 +13,10 @@ namespace Circustrein
     public partial class MainWindow : Window
     {
         // create an animal list collection, so we can display all the animals that have been added in a automaticaly updating list
-        private ObservableCollection<Animal> animalList = new ObservableCollection<Animal>();
+        private ObservableCollection<IAnimal> animalList = new ObservableCollection<IAnimal>();
 
         // create the getter and setter for the animal list, that is only availible for the window and the window class
-        internal ObservableCollection<Animal> AnimalList { get => animalList; set => animalList = value; }
+        internal ObservableCollection<IAnimal> AnimalList { get => animalList; set => animalList = value; }
 
         // create an animal instance to bind the input fields to
         private Animal animal = new Animal();

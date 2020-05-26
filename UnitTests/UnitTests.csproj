@@ -64,6 +64,10 @@
       <Project>{8AD79FC1-FEB9-4625-B5B8-BA0EAC1D414D}</Project>
       <Name>Circustrein</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{CB9EE9AF-2194-432B-8B17-19AEC2563ABA}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
