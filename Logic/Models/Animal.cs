@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.Models
 {
-    public class Animal : INotifyPropertyChanged, IAnimal
+    public abstract class Animal : INotifyPropertyChanged
     {
         private string _name { get; set; } = "";
         private BodySize _size { get; set; } = BodySize.Small;
@@ -60,6 +60,8 @@ namespace Logic.Models
 
             return true;
         }
+
+        public abstract bool CheckIfAllowed(Animal animal);
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] String propertyName = "")

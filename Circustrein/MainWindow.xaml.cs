@@ -1,6 +1,8 @@
 ﻿using Logic;
+using Logic.Helpers;
 using Logic.Interfaces;
 using Logic.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,13 +15,13 @@ namespace Circustrein
     public partial class MainWindow : Window
     {
         // create an animal list collection, so we can display all the animals that have been added in a automaticaly updating list
-        private ObservableCollection<IAnimal> animalList = new ObservableCollection<IAnimal>();
+        private ObservableCollection<Animal> animalList = new ObservableCollection<Animal>();
 
         // create the getter and setter for the animal list, that is only availible for the window and the window class
-        internal ObservableCollection<IAnimal> AnimalList { get => animalList; set => animalList = value; }
+        internal ObservableCollection<Animal> AnimalList { get => animalList; set => animalList = value; }
 
         // create an animal instance to bind the input fields to
-        private Animal animal = new Animal();
+        private Animal animal = new Carnivour();
 
         public MainWindow()
         {
@@ -41,22 +43,43 @@ namespace Circustrein
             if (animal.name != null)
             {
                 // add the newly added animal to the animal list
-                AnimalList.Add(new Animal()
-                {
-                    name = animal.name,
-                    food = animal.food,
-                    size = animal.size
-                });
+                if (animal.food == FoodType.Meat)
+                    AddCarnivourToList();
+                else
+                    AddHerbivourToList();
 
                 // reset the input fields
                 animal.ResetToDefault();
             }
         }
 
+        private void AddCarnivourToList()
+        {
+            AnimalList.Add(new Carnivour()
+            {
+                name = animal.name,
+                food = animal.food,
+                size = animal.size
+            });
+        }
+
+        private void AddHerbivourToList()
+        {
+            AnimalList.Add(new Herbivour()
+            {
+                name = animal.name,
+                food = animal.food,
+                size = animal.size
+            });
+        }
+
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
+            ListSorter sorter = new ListSorter();
+            List<Animal> animals = sorter.SortAnimalsForOptimalAssignment(AnimalList.ToList());
+
             // pass on the animal list to the train view
-            TrainWindow train = new TrainWindow(AnimalList.ToList());
+            TrainWindow train = new TrainWindow(animals);
 
             // show the train window
             train.Show();
@@ -68,16 +91,16 @@ namespace Circustrein
         private void GetDefaultAnimals()
         {
             // add some animals to the animal list
-            animalList.Add(new Animal() { name = "Ape", food = FoodType.Plants, size = BodySize.Medium });
-            animalList.Add(new Animal() { name = "Elaphant", food = FoodType.Plants, size = BodySize.Big });
-            animalList.Add(new Animal() { name = "Lion", food = FoodType.Meat, size = BodySize.Big });
-            animalList.Add(new Animal() { name = "Tiger", food = FoodType.Meat, size = BodySize.Big });
-            animalList.Add(new Animal() { name = "Eagle", food = FoodType.Meat, size = BodySize.Medium });
-            animalList.Add(new Animal() { name = "Wolf", food = FoodType.Meat, size = BodySize.Medium });
-            animalList.Add(new Animal() { name = "Ferret", food = FoodType.Meat, size = BodySize.Small });
-            animalList.Add(new Animal() { name = "Mice", food = FoodType.Plants, size = BodySize.Small });
-            animalList.Add(new Animal() { name = "Bunny", food = FoodType.Plants, size = BodySize.Small });
-            animalList.Add(new Animal() { name = "Deer", food = FoodType.Plants, size = BodySize.Medium });
+            animalList.Add(new Herbivour() { name = "Ape", food = FoodType.Plants, size = BodySize.Medium });
+            animalList.Add(new Herbivour() { name = "Elaphant", food = FoodType.Plants, size = BodySize.Big });
+            animalList.Add(new Carnivour() { name = "Lion", food = FoodType.Meat, size = BodySize.Big });
+            animalList.Add(new Carnivour() { name = "Tiger", food = FoodType.Meat, size = BodySize.Big });
+            animalList.Add(new Carnivour() { name = "Eagle", food = FoodType.Meat, size = BodySize.Medium });
+            animalList.Add(new Carnivour() { name = "Wolf", food = FoodType.Meat, size = BodySize.Medium });
+            animalList.Add(new Carnivour() { name = "Ferret", food = FoodType.Meat, size = BodySize.Small });
+            animalList.Add(new Herbivour() { name = "Mice", food = FoodType.Plants, size = BodySize.Small });
+            animalList.Add(new Herbivour() { name = "Bunny", food = FoodType.Plants, size = BodySize.Small });
+            animalList.Add(new Herbivour() { name = "Deer", food = FoodType.Plants, size = BodySize.Medium });
         }
     }
 }

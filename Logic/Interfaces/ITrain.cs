@@ -8,6 +8,6 @@ namespace Logic.Interfaces
     {
         List<IWagon> wagons { get; }
 
-        Train FillTrainWagons(List<IAnimal> animals);
+        Train FillTrainWagons(List<Animal> animals);
     }
 }

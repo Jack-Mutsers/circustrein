@@ -8,7 +8,8 @@ namespace Logic.Models
 {
     public class Wagon: IWagon
     {
-        public List<IAnimal> animals { get; private set; } = new List<IAnimal>();
+        public IEnumerable<Animal> animals { get; private set; } = new List<Animal>();
+
         public int maxSize { get; private set; } = 10;
         public int usedSpace { get; private set; } = 0;
 
@@ -20,7 +21,7 @@ namespace Logic.Models
             }
         }
 
-        public void AsignAnimalsToWagon(List<IAnimal> animalList)
+        public void AsignAnimalsToWagon(List<Animal> animalList)
         {
             if (animalList == null)
                 throw new ArgumentNullException();
@@ -36,7 +37,7 @@ namespace Logic.Models
                 if (maxSize == usedSpace)
                     break;
 
-                if (animals.Count == 0)
+                if (animals.ToList().Count == 0)
                 {
                     AddToWagon(animal);
                     continue;
@@ -45,6 +46,16 @@ namespace Logic.Models
                 bool fits = CheckIfFits(animal.size);
                 if (!fits)
                     continue;
+
+                foreach(Animal animal1 in animals)
+                {
+                    bool allowed = animal1.CheckIfAllowed(animal);
+
+                    if (allowed == false)
+                    {
+                        break;
+                    }
+                }
 
                 bool meatEaterAssigned = CheckForMeatEater();
                 if (!meatEaterAssigned)
@@ -68,7 +79,7 @@ namespace Logic.Models
             }
         }
 
-        private void AddToWagon(IAnimal animal)
+        private void AddToWagon(Animal animal)
         {
             if (animal == null)
             {
@@ -80,15 +91,18 @@ namespace Logic.Models
                 throw new ArgumentException("Animal values");
             }
 
-            animals.Add(animal); 
+            List<Animal> animalList = animals.ToList();
+            animalList.Add(animal);
+
+            animals = animalList;
             usedSpace += (int)animal.size;
         }
 
         private bool CheckIfFits(BodySize animalSize)
         {
-            BodySize meatEaterSize = GetMeatEaterSize();
+            //BodySize meatEaterSize = GetMeatEaterSize();
 
-            if ((usedSpace + (int)animalSize) <= maxSize && animalSize > meatEaterSize)
+            if ((usedSpace + (int)animalSize) <= maxSize)
             {
                 return true;
             }
@@ -102,7 +116,7 @@ namespace Logic.Models
             ListFilters filter = new ListFilters();
 
             // get the meat eaters inside of the train wagon
-            List<IAnimal> meatEater = filter.GetCarnivoreList(animals);
+            List<Animal> meatEater = filter.GetCarnivoreList(animals.ToList());
 
             BodySize size = 0;
             if (meatEater.Count() > 0)
@@ -120,7 +134,7 @@ namespace Logic.Models
             ListFilters filter = new ListFilters();
 
             // get a list of meat eaters from the train wagon
-            List<IAnimal> meatEaterList = filter.GetCarnivoreList(animals);
+            List<Animal> meatEaterList = filter.GetCarnivoreList(animals.ToList());
 
             // check if there is a meat eater inside of the train wagon and return as bool
             return meatEaterList.Count() > 0;

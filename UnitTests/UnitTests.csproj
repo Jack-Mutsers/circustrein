@@ -50,10 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalList.cs" />
+    <Compile Include="animals\HerbivourTest.cs" />
+    <Compile Include="animals\CarnivourTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrainTests.cs" />
     <Compile Include="ListFilterTests.cs" />
-    <Compile Include="AnimalTests.cs" />
+    <Compile Include="animals\AnimalTests.cs" />
     <Compile Include="wagonTests.cs" />
   </ItemGroup>
   <ItemGroup>

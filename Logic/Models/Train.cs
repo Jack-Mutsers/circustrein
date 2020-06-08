@@ -8,11 +8,11 @@ namespace Logic.Models
     public class Train: ITrain
     {
         // create an assigned animal list, so that we may track what animals have already been assined to a train wagon
-        private List<IAnimal> assignedAnimals { get; set; } = new List<IAnimal>();
+        private List<Animal> assignedAnimals { get; set; } = new List<Animal>();
 
         public List<IWagon> wagons { get; private set; } = new List<IWagon>();
 
-        public Train FillTrainWagons(List<IAnimal> animals)
+        public Train FillTrainWagons(List<Animal> animals)
         {
             // check if animals is filled
             if (animals == null)
@@ -24,9 +24,9 @@ namespace Logic.Models
             // loop through the animals, untill all animals have been assinged to a train wagon
             while (animalCount < animals.Count)
             {
-                List<IAnimal> animalList = animals.Except(assignedAnimals).ToList();
+                List<Animal> animalList = animals.Except(assignedAnimals).ToList();
 
-                Wagon wagon = new Wagon();
+                IWagon wagon = new Wagon();
 
                 wagon.AsignAnimalsToWagon(animalList);
 
@@ -38,7 +38,7 @@ namespace Logic.Models
                 }
 
                 // increase the animal count by the same amount of animals as there are in the newly filled train wagon
-                animalCount += wagon.animals.Count;
+                animalCount += wagon.animals.Count();
             }
 
             return this;

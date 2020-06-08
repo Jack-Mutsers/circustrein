@@ -18,7 +18,7 @@ namespace UnitTests
             AnimalList animalList = new AnimalList();
             IWagon wagon = new Wagon();
 
-            wagon.AsignAnimalsToWagon(animalList.Animals);
+            wagon.AsignAnimalsToWagon(animalList.UnsortedAnimals);
 
             Assert.AreEqual(10, wagon.usedSpace);
         }
@@ -27,11 +27,11 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentException))]
         public void AsignAnimalsToWagon_Failure()
         {
-            List<IAnimal> animals = new List<IAnimal>()
+            List<Animal> animals = new List<Animal>()
             {
-                new Animal(){name = "Squirl", food = FoodType.Plants, size = BodySize.Small},
-                new Animal(){name = "mice", food = FoodType.Plants, size = BodySize.Small},
-                new Animal()
+                new Herbivour(){name = "Squirl", food = FoodType.Plants, size = BodySize.Small},
+                new Herbivour(){name = "mice", food = FoodType.Plants, size = BodySize.Small},
+                new Herbivour()
             };
 
             IWagon wagon = new Wagon();
@@ -43,10 +43,10 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void AsignAnimalsToWagon_EmptyAnimal()
         {
-            List<IAnimal> animals = new List<IAnimal>()
+            List<Animal> animals = new List<Animal>()
             {
-                new Animal(){name = "Squirl", food = FoodType.Plants, size = BodySize.Small},
-                new Animal(){name = "mice", food = FoodType.Plants, size = BodySize.Small},
+                new Herbivour(){name = "Squirl", food = FoodType.Plants, size = BodySize.Small},
+                new Herbivour(){name = "mice", food = FoodType.Plants, size = BodySize.Small},
                 null
             };
 
@@ -59,7 +59,7 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void AsignAnimalsToWagon_Empty()
         {
-            List<IAnimal> animals = null;
+            List<Animal> animals = null;
 
             IWagon wagon = new Wagon();
 

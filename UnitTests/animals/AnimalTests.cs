@@ -11,7 +11,7 @@ namespace UnitTests
         [TestMethod]
         public void ResetToDefault()
         {
-            IAnimal animal = new Animal()
+            Animal animal = new Herbivour()
             {
                 name = "Hippo",
                 food = FoodType.Plants,
@@ -28,7 +28,7 @@ namespace UnitTests
         [TestMethod]
         public void ValidateValues_success()
         {
-            IAnimal animal = new Animal()
+            Animal animal = new Herbivour()
             {
                 name = "Hippo",
                 food = FoodType.Plants,
@@ -43,7 +43,7 @@ namespace UnitTests
         [TestMethod]
         public void ValidateValues_Failure()
         {
-            IAnimal animal = new Animal();
+            Animal animal = new Carnivour();
 
             bool valid = animal.ValidateValues();
 
