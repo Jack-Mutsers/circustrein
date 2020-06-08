@@ -47,35 +47,21 @@ namespace Logic.Models
                 if (!fits)
                     continue;
 
-                foreach(Animal animal1 in animals)
+                bool allowed = false;
+                foreach (Animal animal1 in animals)
                 {
-                    bool allowed = animal1.CheckIfAllowed(animal);
+                    allowed = animal1.CheckIfAllowed(animal);
 
-                    if (allowed == false)
+                    if (!allowed)
                     {
                         break;
                     }
                 }
 
-                bool meatEaterAssigned = CheckForMeatEater();
-                if (!meatEaterAssigned)
+                if (allowed)
                 {
-                    if (animal.food == FoodType.Meat)
-                    {
-                        BodySize size = GetSmalestAnimalSize();
-                        if (animal.size >= size) continue;
-                    }
-
                     AddToWagon(animal);
                 }
-                else if(animal.food == FoodType.Plants)
-                {
-                    BodySize meatEaterSize = GetMeatEaterSize();
-
-                    if ( animal.size > meatEaterSize)
-                        AddToWagon(animal);
-                }
-
             }
         }
 
