@@ -96,42 +96,6 @@ namespace Logic.Models
             return false;
         }
 
-        private BodySize GetMeatEaterSize()
-        {
-            // create instance of alterList, so we can get the meat eater inside of the train wagon
-            ListFilters filter = new ListFilters();
-
-            // get the meat eaters inside of the train wagon
-            List<Animal> meatEater = filter.GetCarnivoreList(animals.ToList());
-
-            BodySize size = 0;
-            if (meatEater.Count() > 0)
-            {
-                // return the size of the only meat eater inside of the train wagon
-                size = meatEater.Select(a => a.size).First();
-            }
-
-            return size;
-        }
-
-        private bool CheckForMeatEater()
-        {
-            // create an instance of alterList, so we van get a list of the meat eaters inside of the train wagon
-            ListFilters filter = new ListFilters();
-
-            // get a list of meat eaters from the train wagon
-            List<Animal> meatEaterList = filter.GetCarnivoreList(animals.ToList());
-
-            // check if there is a meat eater inside of the train wagon and return as bool
-            return meatEaterList.Count() > 0;
-        }
-
-        private BodySize GetSmalestAnimalSize()
-        {
-            // get the smalles animal inside of the train wagon
-            return animals.Select(a => a.size).Min();
-        }
-
     }
 }
 

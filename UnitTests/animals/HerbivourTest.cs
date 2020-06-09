@@ -76,7 +76,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CheckIfAllowedTest_Happy_Meateater_BiggerSize()
+        public void CheckIfAllowedTest_Happy_Meateater_LargerSize()
         {
             Animal animal = new Herbivour()
             {
