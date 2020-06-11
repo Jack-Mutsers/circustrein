@@ -1,4 +1,5 @@
-﻿using Logic.Models;
+﻿using Logic.Interfaces;
+using Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,20 @@ namespace Logic.Helpers
 {
     public class ListSorter
     {
-        public List<Animal> SortAnimalsForOptimalAssignment(List<Animal> animals)
+        public List<IAnimal> SortAnimalsForOptimalAssignment(List<IAnimal> animals)
         {
             ListFilters filter = new ListFilters();
 
-            List<Animal> MeatEaters = filter.GetCarnivoreList(animals);
-            List<Animal> PlantEaters = filter.GetHerbivoreList(animals);
+            List<IAnimal> MeatEaters = filter.GetCarnivoreList(animals);
+            List<IAnimal> PlantEaters = filter.GetHerbivoreList(animals);
 
-            List<Animal> SortedMeatEaters = SortAnimalsByBodySize(MeatEaters);
-            List<Animal> SortedPlantEaters = SortAnimalsByBodySize(PlantEaters);
+            List<IAnimal> SortedMeatEaters = SortAnimalsByBodySize(MeatEaters);
+            List<IAnimal> SortedPlantEaters = SortAnimalsByBodySize(PlantEaters);
 
             return SortedMeatEaters.Concat(SortedPlantEaters).ToList();
         }
 
-        public List<Animal> SortAnimalsByBodySize(List<Animal> animals)
+        public List<IAnimal> SortAnimalsByBodySize(List<IAnimal> animals)
         {
             return animals.OrderByDescending(a => a.size).ToList();
         }

@@ -6,8 +6,8 @@ namespace Logic.Interfaces
 {
     public interface ITrain
     {
-        List<IWagon> wagons { get; }
+        List<IWagon> trainWagons { get; }
 
-        Train FillTrainWagons(List<Animal> animals);
+        void FillTrainWagons(List<IAnimal> animals);
     }
 }

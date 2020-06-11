@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Logic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Logic.Models
 {
-    public class Herbivour : Animal
+    public class Herbivour : Animal, IAnimal
     {
-        // check if the new animal is allowed to be with this animal
-        public override bool CheckIfAllowed(Animal animal)
+        public override bool CheckIfAllowed(IAnimal animal)
         {
             if (animal == null)
                 throw new ArgumentNullException("No Animal");

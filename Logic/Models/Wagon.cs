@@ -8,7 +8,7 @@ namespace Logic.Models
 {
     public class Wagon: IWagon
     {
-        public IEnumerable<Animal> animals { get; private set; } = new List<Animal>();
+        public IEnumerable<IAnimal> animals { get; private set; } = new List<IAnimal>();
 
         public int maxSize { get; private set; } = 10;
         public int usedSpace { get; private set; } = 0;
@@ -21,18 +21,18 @@ namespace Logic.Models
             }
         }
 
-        public void AsignAnimalsToWagon(List<Animal> animalList)
+        public void AsignAnimalsToWagon(List<IAnimal> animalList)
         {
             if (animalList == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("AnimalList null");
 
-            foreach (Animal animal in animalList)
+            foreach (IAnimal animal in animalList)
             {
                 if (animal == null)
                     throw new ArgumentNullException("Animal null");
 
-                if (animal.name == "")
-                    throw new ArgumentException("Animal name");
+                if (animal.ValidateValues())
+                    throw new ArgumentException("No Animal name");
 
                 if (maxSize == usedSpace)
                     break;
@@ -48,7 +48,7 @@ namespace Logic.Models
                     continue;
 
                 bool allowed = false;
-                foreach (Animal animal1 in animals)
+                foreach (IAnimal animal1 in animals)
                 {
                     allowed = animal1.CheckIfAllowed(animal);
 
@@ -65,19 +65,15 @@ namespace Logic.Models
             }
         }
 
-        private void AddToWagon(Animal animal)
+        private void AddToWagon(IAnimal animal)
         {
             if (animal == null)
-            {
                 throw new ArgumentNullException("Animal");
-            }
 
             if (animal.ValidateValues() == false)
-            {
-                throw new ArgumentException("Animal values");
-            }
+                throw new ArgumentException("No Animal name");
 
-            List<Animal> animalList = animals.ToList();
+            List<IAnimal> animalList = animals.ToList();
             animalList.Add(animal);
 
             animals = animalList;
@@ -86,12 +82,8 @@ namespace Logic.Models
 
         private bool CheckIfFits(BodySize animalSize)
         {
-            //BodySize meatEaterSize = GetMeatEaterSize();
-
             if ((usedSpace + (int)animalSize) <= maxSize)
-            {
                 return true;
-            }
 
             return false;
         }

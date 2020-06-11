@@ -7,7 +7,7 @@ namespace Logic.Helpers
 {
     public class ListFilters
     {
-        public List<Animal> GetCarnivoreList(List<Animal> animals)
+        public List<IAnimal> GetCarnivoreList(List<IAnimal> animals)
         {
             // return a list of only meat eaters
             var query = animals.Where(a => a.food == FoodType.Meat).OrderByDescending(a => a.size);
@@ -15,7 +15,7 @@ namespace Logic.Helpers
             return query.ToList();
         }
 
-        public List<Animal> GetHerbivoreList(List<Animal> animals)
+        public List<IAnimal> GetHerbivoreList(List<IAnimal> animals)
         {
             // return a list of only plant eaters
             var query = animals.Where(a => a.food == FoodType.Plants).OrderByDescending(a => a.size);

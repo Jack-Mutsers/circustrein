@@ -12,14 +12,14 @@ namespace UnitTests
         [TestMethod]
         public void CheckIfAllowedTest_Happy_Planteater_LargerSize()
         {
-            Animal animal = new Carnivour()
+            IAnimal animal = new Carnivour()
             {
                 name = "Wolf",
                 food = FoodType.Meat,
                 size = BodySize.Medium
             };
 
-            Animal newAnimal = new Herbivour()
+            IAnimal newAnimal = new Herbivour()
             {
                 name = "Elephant",
                 food = FoodType.Plants,

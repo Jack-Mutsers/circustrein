@@ -61,7 +61,7 @@ namespace Logic.Models
             return true;
         }
 
-        public abstract bool CheckIfAllowed(Animal animal);
+        public abstract bool CheckIfAllowed(IAnimal animal);
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] String propertyName = "")

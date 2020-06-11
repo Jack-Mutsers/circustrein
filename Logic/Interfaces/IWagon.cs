@@ -6,10 +6,10 @@ namespace Logic.Interfaces
 {
     public interface IWagon
     {
-        IEnumerable<Animal> animals { get; }
+        IEnumerable<IAnimal> animals { get; }
         int maxSize { get; }
         int usedSpace { get; }
 
-        void AsignAnimalsToWagon(List<Animal> animalList);
+        void AsignAnimalsToWagon(List<IAnimal> animalList);
     }
 }

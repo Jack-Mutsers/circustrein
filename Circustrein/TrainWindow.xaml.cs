@@ -11,9 +11,9 @@ namespace Circustrein
     public partial class TrainWindow : Window
     {
         // create an instance for the list of animals that gets send over
-        private List<Animal> animalList;
+        private List<IAnimal> animalList;
 
-        public TrainWindow(List<Animal> list)
+        public TrainWindow(List<IAnimal> list)
         {
             InitializeComponent();
 
@@ -24,7 +24,7 @@ namespace Circustrein
             train.FillTrainWagons(animalList);
 
             // assign the train collection to the listbox
-            lbWagons.ItemsSource = train.wagons;
+            lbWagons.ItemsSource = train.trainWagons;
         }
 
     }
